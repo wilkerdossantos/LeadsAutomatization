@@ -43,13 +43,13 @@ urls = []
 if not list_pages:
     driver.get(f"https://www.linkedin.com/search/results/companies/?keywords={keywords}&page={pages}&companyHqGeo=%5B%22106057199%22%5D&companySize=%5B%22D%22%2C%22E%22%2C%22F%22%2C%22G%22%2C%22H%22%2C%22I%22%5D")
     time.sleep(2)
-    urls_companies = driver.find_elements(By.CLASS_NAME, 'app-aware-link ')
+    urls_companies = driver.find_elements(By.XPATH, '//*[@data-test-app-aware-link]')
     urls = [url.get_attribute('href') for url in urls_companies if '/company/' in url.get_attribute('href')]
 else:
     for page in list_pages:
         driver.get(f"https://www.linkedin.com/search/results/companies/?keywords={keywords}&page={page}&companyHqGeo=%5B%22106057199%22%5D&companySize=%5B%22D%22%2C%22E%22%2C%22F%22%2C%22G%22%2C%22H%22%2C%22I%22%5D")
         time.sleep(2)
-        urls_companies = driver.find_elements(By.CLASS_NAME, 'app-aware-link ')
+        urls_companies = driver.find_elements(By.XPATH, '//*[@data-test-app-aware-link]')
         for url in urls_companies:
             if '/company/' in url.get_attribute('href'):
                 urls.append(url.get_attribute('href'))
